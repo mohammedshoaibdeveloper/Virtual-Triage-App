@@ -26,12 +26,13 @@ function whatsapphome(props){
         
 
       <View style={styles.mainContainer}>
+        <View style={{alignSelf:'center',flexDirection:'row'}}>
         
         <Button style={styles.button} mode="contained" onPress={() => {
           setModalVisible(true);
         }}><Text style={styles.text} >PATIENT</Text></Button> 
         <Button style={styles.button} mode="contained" onPress={Doctor}><Text style={styles.text} >DOCTOR</Text></Button> 
-
+        </View>
 
          <View style={styles.centeredView}>
       <Modal

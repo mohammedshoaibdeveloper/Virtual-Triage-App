@@ -12,6 +12,7 @@ import signin from '../screens/signin';
 import signup from '../screens/signup';
 import otpverification from '../screens/otpverification';
 import footer from '../screens/footer';
+import Footer2 from '../screens/footer2';
 
 
 
@@ -22,9 +23,11 @@ function AppNavigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen name="footer" options={{ headerShown: false }} component={footer} />
       <Stack.Screen name="opdhome" options={{ headerShown: false }} component={opdhome} />
-     
+      
+      <Stack.Screen name="footer" options={{ headerShown: false }} component={footer} />
+
+    
 
       <Stack.Screen name="home" options={{ headerShown: false }} component={home} />
         <Stack.Screen name="login" options={{ headerShown: false }} component={login} />

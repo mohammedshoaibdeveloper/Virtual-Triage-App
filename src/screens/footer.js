@@ -19,6 +19,7 @@ const Tab = createMaterialBottomTabNavigator();
 function footer() {
   return (
     <Tab.Navigator
+     
       initialRouteName="loginsignup"
       activeColor="#e91e63"
       style={{ backgroundColor: 'tomato' }}
