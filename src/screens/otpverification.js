@@ -78,7 +78,11 @@ const styles = StyleSheet.create({
             <View style={{bottom: 10,position:'absolute',alignSelf:'center'}}> 
         
 
-            <Button style={styles.signin} mode="contained"title="LOGIN" onPress={()=>props.navigation.navigate("otpverification")}><Text style={{letterSpacing:4.5,color:'white',fontWeight:'bold'}}>Verify</Text></Button>
+            <Button style={styles.signin} mode="contained"title="LOGIN" 
+             onPress={()=>
+              props.navigation.navigate("dashboard")
+             
+            }><Text style={{letterSpacing:4.5,color:'white',fontWeight:'bold'}}>Verify</Text></Button>
 
         </View>
         

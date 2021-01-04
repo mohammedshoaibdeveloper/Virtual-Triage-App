@@ -17,9 +17,28 @@ function signin(props){
       }
   
       console.log("user==>",user)
-      Alert.alert('Credentials', `${Username} + ${password}`);
-  
-    }
+      // Alert.alert('Credentials', `${Username} + ${password}`);
+
+
+
+      var formdata = new FormData();
+        formdata.append("Username", Username);
+        formdata.append("Password", password);
+        formdata.append("Sender_ID", "cyZoJjr-RSOn-lRyLDcAW0:APA91bErkVp0nTX7URm5LApE_lhNLP6Pdb8G58vPNSYdPXyuoL7RRTt-Zr6r8LPDwfD6JGJ3WSJCiDM97X1Sk0Zv3-LHnjHF1SQoUt3eAW4HKrdavXgju-dEHjzHtsJcyZoJjr-RSOn-lRyLDcAW0:APA91bErkVp0nTX7URm5LApE_lhNLP6Pdb8G58vPNSYdPXyuoL7RRTt-Zr6r8LPDwfD6JGJ3WSJCiDM97X1Sk0Zv3-LHnjHF1SQoUt3eAW4HKrdavXgju-dEHjzHtsJcyZoJjr-RSOn-lRyLDcAW0:APA91bErkVp0nTX7URm5LApE_lhNLP6Pdb8G58vPNSYdPXyuoL7RRTt-Zr6r8LPDwfD6JGJ3WSJCiDM97X1Sk0Zv3-LHnjHF1SQoUt3eAW4HKrdavXgju-dEHjzHtsJ");
+        formdata.append("Device_type", "android");
+
+        var requestOptions = {
+          method: 'POST',
+          body: formdata,
+          redirect: 'follow'
+        };
+
+        fetch("http://127.0.0.1:8000/Ear_HEaalth_Api/Patient_LoginView", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+          
+            }
 
 
     return(
@@ -51,7 +70,7 @@ function signin(props){
         <View> 
         
 
-        <Button style={styles.signin} mode="contained"title="LOGIN"><Text style={{letterSpacing:2.5,color:'black',fontWeight:'bold'}}>SIGN IN</Text></Button>
+        <Button style={styles.signin} mode="contained"title="LOGIN" onPress={save_data}><Text style={{letterSpacing:2.5,color:'black',fontWeight:'bold'}}>SIGN IN</Text></Button>
 
         </View>
 

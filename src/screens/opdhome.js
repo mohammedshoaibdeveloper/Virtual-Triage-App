@@ -63,7 +63,11 @@ function whatsapphome(props){
                 setModalVisible(!modalVisible);
               }}
             >
-              <Text style={{fontsize:'35',color:'#c53ae8',marginTop:10}}>Skip Now</Text>
+              <Text style={{fontsize:'35',color:'#c53ae8',marginTop:10}}  onPress={()=>{
+              props.navigation.navigate("dashboard")
+              setModalVisible(!modalVisible)
+            }}>
+              Skip Now</Text>
             </TouchableHighlight>
           </View>
         </View>

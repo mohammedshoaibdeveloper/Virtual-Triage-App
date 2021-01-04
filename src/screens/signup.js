@@ -7,27 +7,55 @@ import { SocialIcon } from 'react-native-elements'
 function signup(props){
     const [email,setemail] = useState("");
     const [username,setUsername] = useState("");
+    const [fullname,setfullname] = useState("");
     const [firstname,setfirstname] = useState("");
     const [lastname,setlastname] = useState("");
-   
     const [phonenumber,setphonenumber] = useState("");
     const [ohipnumber,setohipnumber] = useState("");
     const [startdate,setstartdate] = useState("");
     const [enddate,setenddate] = useState("");
-    
     const [password,setPassword] = useState("");
   
     const save_data=()=>{
   
       let user = {
   
-        username,password
+        email,username,firstname,lastname,phonenumber,ohipnumber,startdate,enddate,password,fullname
       }
   
       console.log("user==>",user)
-      Alert.alert('Credentials', `${username} + ${password}`);
-  
-    }
+      // Alert.alert('Credentials', `${username} + ${password}`);
+
+       var formdata = new FormData();
+          formdata.append("Full_Name", fullname);
+          formdata.append("Email", email);
+          formdata.append("Username", username);
+          formdata.append("Mobile_Number", phonenumber);
+          formdata.append("Password", password);
+          formdata.append("ohip_number", ohipnumber);
+          formdata.append("date_of_issue", startdate);
+          formdata.append("date_of_expiry", enddate);
+          formdata.append("First_Name", firstname);
+          formdata.append("Last_Name", lastname);
+
+          var requestOptions = {
+            method: 'POST',
+            body: formdata,
+            redirect: 'follow'
+          };
+
+          fetch("https://www.virtualtriage.ca/Ear_HEaalth_Api/patientSignup", requestOptions)
+            .then(response => response.text()
+              
+            )
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+            
+        
+          }
+
+
+   
 
 
     return(
@@ -53,7 +81,12 @@ function signup(props){
             <TextInput
             style={styles.input}
             
-             placeholder="Username" value={username} onChangeText={(username)=>setusername(username)}/>
+             placeholder="Username" value={username} onChangeText={(username)=>setUsername(username)}/>
+
+             <TextInput
+            style={styles.input}
+            
+             placeholder="Full Name" value={fullname} onChangeText={(fullname)=>setfullname(fullname)}/>
 
             <TextInput
                 style={styles.input}
@@ -64,7 +97,7 @@ function signup(props){
                 <TextInput
                 style={styles.input}
                 
-                value={lastname} onChangeText={(lastname)=>setlastnamee(lastname)} placeholder="Last Name"/ >
+                value={lastname} onChangeText={(lastname)=>setlastname(lastname)} placeholder="Last Name"/ >
                      <TextInput
                 style={styles.input}
                 
@@ -91,7 +124,7 @@ function signup(props){
             secureTextEntry={true} placeholder="Set Password" value={password} onChangeText={(password)=>setPassword(password)}/>
 
 
-              <Button style={styles.signin} mode="contained"title="LOGIN" onPress={()=>props.navigation.navigate("otpverification")}><Text style={{letterSpacing:2.5,color:'white',fontWeight:'bold'}}>CREATE AN ACCOUNT</Text></Button>
+              <Button style={styles.signin} mode="contained"title="LOGIN" onPress={save_data}><Text style={{letterSpacing:2.5,color:'white',fontWeight:'bold'}}>CREATE AN ACCOUNT</Text></Button>
         </View>
         
           </View>
