@@ -14,7 +14,7 @@ function Footer2(props){
         
 
           <View style={styles.container}>
-              <View style={{position:'absolute',bottom:0,backgroundColor:'blue',width:'100%',height:'8%'}}>
+              <View style={{position:'absolute',bottom:0,backgroundColor:'blue',width:'100%',height:50}}>
               <View style={{flexDirection:'row',position:'absolute',top:12,width:'100%',alignSelf:'center',left:20}}>
                   <View style={{width:'20%'}}>
             <Ionicon name="home"  size={30} color={'white'}  />
@@ -53,7 +53,9 @@ function Footer2(props){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    // justifyContent: 'center',
+    // position:'absolute',
+    // bottom:0
  
   },
 

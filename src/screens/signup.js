@@ -2,7 +2,8 @@ import React,{useState} from 'react';
 import {Alert,View , Text,StyleSheet,ScrollView} from 'react-native';
 import { TextInput,Button } from 'react-native-paper';
 import { SocialIcon } from 'react-native-elements'
-
+import Toast from 'react-native-toast-message';
+import { AsyncStorage } from 'react-native';
 
 function signup(props){
     const [email,setemail] = useState("");
@@ -15,14 +16,14 @@ function signup(props){
     const [startdate,setstartdate] = useState("");
     const [enddate,setenddate] = useState("");
     const [password,setPassword] = useState("");
-  
+
     const save_data=()=>{
-  
+
       let user = {
-  
+
         email,username,firstname,lastname,phonenumber,ohipnumber,startdate,enddate,password,fullname
       }
-  
+
       console.log("user==>",user)
       // Alert.alert('Credentials', `${username} + ${password}`);
 
@@ -45,105 +46,126 @@ function signup(props){
           };
 
           fetch("https://www.virtualtriage.ca/Ear_HEaalth_Api/patientSignup", requestOptions)
-            .then(response => response.text()
-              
+            .then(response => response.json()
+
             )
-            .then(result => console.log(result))
+            .then(result => {console.log("my result is",result)
+
+
+            if(result.status == true){
+              _storeData = async () => {
+            try {
+              await AsyncStorage.setItem("doctorDetails", JSON.stringify(result.data))
+
+            } catch (error) {
+            // Error saving data
+          }
+          };
+              props.navigation.navigate("otpverification",{result})
+            }
+            else{
+              Alert.alert(result.message);
+            }
+
+
+          })
             .catch(error => console.log('error', error));
-            
-        
+
+
+
+
           }
 
 
-   
+
 
 
     return(
-       
 
-        
+
+
             <ScrollView>
           <View style={styles.container}>
             <View >
             <Text style={{alignSelf:"center",fontSize:20,fontWeight:'200',fontWeight:'bold',color:'black',letterSpacing:1.5,marginLeft:20}}>Please leave contact details:</Text>
-           
+
             <Text style={{alignSelf:"center",fontSize:14,paddingTop:5,fontWeight:'50',padding:34,color:'grey',fontFamily: 'sans-serif',letterSpacing:2.5}}>In case you need to be contacted about your service </Text>
 
-           
+
 
             <View  style={styles.inputfield}>
                 <TextInput
                 style={styles.input}
-                
+
                 value={email} onChangeText={(email)=>setemail(email)} placeholder="Email address"/ >
-            
-            
+
+
             <TextInput
             style={styles.input}
-            
+
              placeholder="Username" value={username} onChangeText={(username)=>setUsername(username)}/>
 
              <TextInput
             style={styles.input}
-            
+
              placeholder="Full Name" value={fullname} onChangeText={(fullname)=>setfullname(fullname)}/>
 
             <TextInput
                 style={styles.input}
 
-                
+
                 value={firstname} onChangeText={(firstname)=>setfirstname(firstname)} placeholder="Firsrt Name"/ >
 
                 <TextInput
                 style={styles.input}
-                
+
                 value={lastname} onChangeText={(lastname)=>setlastname(lastname)} placeholder="Last Name"/ >
                      <TextInput
                 style={styles.input}
-                
+
                 value={phonenumber} keyboardType = 'numeric' onChangeText={(phonenumber)=>setphonenumber(phonenumber)} placeholder="Phone Number"/ >
 
                 <TextInput
                 style={styles.input}
-                
+
                 value={ohipnumber} keyboardType = 'numeric' onChangeText={(ohipnumber)=>setohipnumber(ohipnumber)} placeholder="Ohip Number"/ >
                     <TextInput
                 style={styles.input}
-                
+
                 value={startdate} onChangeText={(startdate)=>setstartdate(startdate)} placeholder="Select Date of issue"/ >
 
             <TextInput
                 style={styles.input}
-                
+
                 value={enddate} onChangeText={(enddate)=>setenddate(enddate)} placeholder="Select Date of Expiry"/ >
-            
-            
+
+
             <TextInput
             style={styles.input}
-            
+
             secureTextEntry={true} placeholder="Set Password" value={password} onChangeText={(password)=>setPassword(password)}/>
 
 
               <Button style={styles.signin} mode="contained"title="LOGIN" onPress={save_data}><Text style={{letterSpacing:2.5,color:'white',fontWeight:'bold'}}>CREATE AN ACCOUNT</Text></Button>
         </View>
-        
+
           </View>
-        
-        
 
-      
 
-     
 
-           
-            
 
-          
-      
+
+
+
+
+
+
+
+
     </View>
     </ScrollView>
 
-        
+
 
   )
 }
@@ -151,7 +173,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
- 
+
   },
 
 
@@ -163,17 +185,17 @@ const styles = StyleSheet.create({
     borderRadius:10,
     marginLeft:10,
     backgroundColor:'#c53ae8'
-  
-    
-    
+
+
+
   },
   inputfield:{
-  
+
     margin:22,
     marginTop:2,
-    
-  
-   
+
+
+
 
   },
   input: {
@@ -182,15 +204,15 @@ const styles = StyleSheet.create({
     padding: 5,
     marginBottom: 20,
     backgroundColor:'transparent',
-    
-    
-  
-    
-    
-  },
-  
 
-  
+
+
+
+
+  },
+
+
+
 });
 
 export default signup
